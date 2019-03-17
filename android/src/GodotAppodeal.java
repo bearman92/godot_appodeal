@@ -56,7 +56,6 @@ public class GodotAppodeal extends Godot.SingletonBase {
 				"show_top_banner",
 				"hide_banner",
 				"destroy_banner",
-				"set_debug_mode",
 				"start_test_activity",
 				"track_inapp_purchase",
 				"add_callback",
@@ -93,9 +92,10 @@ public class GodotAppodeal extends Godot.SingletonBase {
 					Log.d("GodotAppodeal", "Native initialized");
 				}
 
-				//TODO: Run callbacks
-
 				Appodeal.initialize(m_activity, appKey, adFlags);
+				if(GodotLib.getGlobal("appodeal/is_debug_enabled").equals("true")) {
+					Appodeal.setLogLevel(com.appodeal.ads.utils.Log.LogLevel.debug);
+				}
 				Appodeal.setInterstitialCallbacks(new InterstitialCallbacks() {
 					@Override
 					public void onInterstitialLoaded(boolean b) {
@@ -268,10 +268,6 @@ public class GodotAppodeal extends Godot.SingletonBase {
 
 	public void destroy_banner() {
     	Appodeal.destroy(Appodeal.BANNER);
-	}
-
-	public void set_debug_mode() {
-		Appodeal.setLogLevel(com.appodeal.ads.utils.Log.LogLevel.debug);
 	}
 
 	public void start_test_activity() {
