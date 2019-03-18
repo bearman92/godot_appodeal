@@ -224,9 +224,9 @@
 
 <!-- Flurry-ads -->
 <!--suppress AndroidDomInspection -->
-<activity android:name="com.flurry.android.FlurryFullscreenTakeoverActivity" 
+<!--<activity android:name="com.flurry.android.FlurryFullscreenTakeoverActivity" 
     android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize">
-</activity>
+</activity>-->
 <!-- End Flurry-ads -->
 
 <!-- Mobvista -->

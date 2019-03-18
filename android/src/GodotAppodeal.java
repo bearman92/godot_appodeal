@@ -6,12 +6,14 @@ import com.appodeal.ads.Appodeal;
 import com.appodeal.ads.BannerCallbacks;
 import com.appodeal.ads.InterstitialCallbacks;
 import com.appodeal.ads.RewardedVideoCallbacks;
+import com.godot.game.BuildConfig;
 
 import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.app.Activity;
 import android.util.Log;
 import android.util.Pair;
+import android.widget.AdapterViewFlipper;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -39,7 +41,7 @@ class GodotCallback {
 public class GodotAppodeal extends Godot.SingletonBase {
 	private Activity m_activity;
 
-	private Map<String, ArrayList<GodotCallback>> m_godotCallbacks = new HashMap<String, ArrayList<GodotCallback>>();
+	private Map<String, ArrayList<GodotCallback>> m_godotCallbacks;
 
     static public Godot.SingletonBase initialize(Activity p_activity) {
         return new GodotAppodeal(p_activity);
@@ -62,40 +64,50 @@ public class GodotAppodeal extends Godot.SingletonBase {
 				"remove_callback"
         });
 
+		m_godotCallbacks = new HashMap<String, ArrayList<GodotCallback>>();
+
         m_activity = p_activity;
 
         p_activity.runOnUiThread(new Runnable() {
             public void run() {
             	//Получаем ключ приложения из настроек проекта
 				String appKey = GodotLib.getGlobal("appodeal/app_key");
+				Appodeal.disableLocationPermissionCheck();
+				Appodeal.disableNetwork(m_activity, "cheetah");
+
 
 				//Собираем флаги для активации необходимых рекламных блоков
 				int adFlags = 0;
-				if(GodotLib.getGlobal("appodeal/is_interstitial_ad_enabled").equals("true")) {
-					adFlags |= Appodeal.INTERSTITIAL;
+				if(GodotLib.getGlobal("appodeal/is_interstitial_ad_enabled").equals("True")) {
+					adFlags = adFlags | Appodeal.INTERSTITIAL;
 					Log.d("GodotAppodeal", "Interstitial initialized");
 				}
-				if(GodotLib.getGlobal("appodeal/is_rewarded_video_ad_enabled").equals("true")) {
-					adFlags |= Appodeal.REWARDED_VIDEO;
+				if(GodotLib.getGlobal("appodeal/is_rewarded_video_ad_enabled").equals("True")) {
+					adFlags = adFlags | Appodeal.REWARDED_VIDEO;
 					Log.d("GodotAppodeal", "Rewarded video initialized");
 				}
-				else if(GodotLib.getGlobal("appodeal/is_non_skippable_video_ad_enabled").equals("true")) {
-					adFlags |= Appodeal.NON_SKIPPABLE_VIDEO;
+				else if(GodotLib.getGlobal("appodeal/is_non_skippable_video_ad_enabled").equals("True")) {
+					adFlags =  adFlags | Appodeal.NON_SKIPPABLE_VIDEO;
 					Log.d("GodotAppodeal", "Non skippable video initialized");
 				}
-				if(GodotLib.getGlobal("appodeal/is_banner_ad_enabled").equals("true")) {
-					adFlags |= Appodeal.BANNER;
+				if(GodotLib.getGlobal("appodeal/is_banner_ad_enabled").equals("True")) {
+					adFlags = adFlags | Appodeal.BANNER;
 					Log.d("GodotAppodeal", "Banner initialized");
 				}
-				if(GodotLib.getGlobal("appodeal/is_native_ad_enabled").equals("true")) {
-					adFlags |= Appodeal.NATIVE;
+				if(GodotLib.getGlobal("appodeal/is_native_ad_enabled").equals("True")) {
+					adFlags = adFlags | Appodeal.NATIVE;
 					Log.d("GodotAppodeal", "Native initialized");
 				}
 
 				Appodeal.initialize(m_activity, appKey, adFlags);
+
 				if(GodotLib.getGlobal("appodeal/is_debug_enabled").equals("true")) {
 					Appodeal.setLogLevel(com.appodeal.ads.utils.Log.LogLevel.debug);
 				}
+				if(BuildConfig.DEBUG && GodotLib.getGlobal("appodeal/is_test_ads_enabled").equals("true")) {
+					Appodeal.setTesting(true);
+				}
+
 				Appodeal.setInterstitialCallbacks(new InterstitialCallbacks() {
 					@Override
 					public void onInterstitialLoaded(boolean b) {

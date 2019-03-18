@@ -6,11 +6,11 @@ def configure(env):
     if env['platform'] == 'android':
         env.android_add_default_config("multiDexEnabled true")
         env.android_add_java_dir("android/src")
-        env.android_add_flat_dir("../../../modules/appodeal/android/libs/")
+        env.android_add_flat_dir("../../../modules/godot_appodeal/android/libs/")
         env.android_add_to_manifest("android/AndroidManifestChunk.xml")
         env.android_add_to_permissions("android/AndroidPermissionsChunk.xml")
         env.android_add_res_dir("android/res")
-        env.android_add_dependency("implementation fileTree(dir: '../../../modules/appodeal/android/libs', include: '*.jar')")
+        env.android_add_dependency("implementation fileTree(dir: '../../../modules/godot_appodeal/android/libs', include: '*.jar')")
         env.android_add_dependency("implementation 'com.android.support:recyclerview-v7:28.0.0'")
         env.android_add_dependency("implementation 'com.android.support:support-v4:28.0.0'")
         env.android_add_dependency("implementation 'com.google.android.gms:play-services-ads:17.2.0'")
