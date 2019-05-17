@@ -20,7 +20,7 @@ Now only supports android platform
 * Clone repository to modules directory of godot engine
 * Copy your `google-services.json` file to `/platform/android/java` folder of godot engine
 
-* Change Google AdMob application id to yours in godot_appodeal/android/AndroidManifestChunk.xml
+* Change Google AdMob application id in godot_appodeal/android/AndroidManifestChunk.xml
 
 ```
 <meta-data
