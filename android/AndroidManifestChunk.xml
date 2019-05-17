@@ -2,7 +2,7 @@
 
 <meta-data
     android:name="com.google.android.gms.ads.APPLICATION_ID"
-    android:value="ca-app-pub-2999303748192081~9986081092"/>
+    android:value="[YOUR_ADMOB_APP_ID]"/>
 
 <meta-data android:name="android.security.net.config"
     android:resource="@xml/network_security_config" />
