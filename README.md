@@ -2,7 +2,7 @@
 
 godot_appodeal is a appodeal integration for godot
 
-[![Platform](https://img.shields.io/badge/Platform-Android-green.svg)](https://github.com/FrogSquare/GodotFireBase)
+[![Platform](https://img.shields.io/badge/Platform-Android-green.svg)]()
 [![GodotEngine](https://img.shields.io/badge/Godot%20Engine-3.1-blue.svg)](https://github.com/godotengine/godot)
 [![PATREON](https://img.shields.io/badge/Patreon-support-yellow.svg)](https://www.patreon.com/dumbcatstudio)
 
